@@ -1,0 +1,20 @@
+[
+    {
+        "name": "brocoli cream soup",
+        "description": "yummy warm soup, quickly makeable, etc",
+        "audio": "none",
+        "tags": ["soup"]
+    },
+    {
+        "name": "gaspatcho",
+        "description": "cold soup, very refreshing",
+        "audio": "none",
+        "tags": ["soup", "spanish"]
+    },
+    {
+        "name": "pasta carbonara",
+        "description": "delicious pasta made with egg and ham",
+        "audio": "none",
+        "tags": ["pasta", "italian"]
+    }
+]

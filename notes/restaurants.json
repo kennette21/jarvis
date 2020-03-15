@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Tifliso",
+        "description": "best georgian place in the city, great wine",
+        "audio": "none",
+        "tags": ["georgian", "party"]
+    },
+    {
+        "name": "Saigon Bistro",
+        "description": "szondi utca, dope pho, kind of intense",
+        "audio": "none",
+        "tags": ["pho", "soup", "vietnamese"]
+    },
+    {
+        "name": "Vin Vin",
+        "description": "best pho on Andrassy street",
+        "audio": "none",
+        "tags": ["pho", "soup", "vietnamese"]
+    }
+]
