@@ -16,5 +16,11 @@
         "description": "delicious pasta made with egg and ham",
         "audio": "none",
         "tags": ["pasta", "italian"]
+    },
+    {
+        "name": "fajitas",
+        "description": "delicious pasta made with egg and ham",
+        "audio": "none",
+        "tags": ["mexican", "vegiterian", "chicken"]
     }
 ]
