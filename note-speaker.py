@@ -100,14 +100,14 @@ def handle_passive_listening(recognizer, audio):
 
 with mic as source:
     r.adjust_for_ambient_noise(source)
-    # audio = r.listen(source)
-    # parse_activation_phrase(audio)
+    audio = r.listen(source)
+    parse_activation_phrase(audio)
     
-stop_listening = r.listen_in_background(mic, handle_passive_listening) ## this is a problem. We need to start list
+# stop_listening = r.listen_in_background(mic, handle_passive_listening) ## this is a problem. We need to start list
 
-for _ in range(1000): time.sleep(0.1) # run the program for 10 seconds or something and wait for activation phrase
+# for _ in range(1000): time.sleep(0.1) # run the program for 10 seconds or something and wait for activation phrase
 
-stop_listening()
+# stop_listening()
 
 """
 Major Next Steps:
