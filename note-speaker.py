@@ -4,17 +4,17 @@ import json
 import time
 from gtts import gTTS
 import playsound as ps
-# from pydub import AudioSegment
-# from pydub.playback import play
-
 
 # if a uer says any of these things the program will do the action: elaborate, repeat, or select
 ELLABORATE_RESPONSES = ["elaborate", "more", "details", "what is that"]
 REPEAT_RESPONSES = ["repeat", "pardon", "that was messed up", "no idea what you said", "what did you say"]
 SELECT_RESPONSES = ["select", "i want that one", "give me that"]
 
-ACTIVATE_WORDS = ["Jarvis", "Cortana", "wizard", "bob", "beth"]
 RECIPIE_WORDS = ["cook", "recipie", "kitchen"]
+
+#### Light related #####
+LIGHTS_WORDS = ["illuminate", "lights", "bright", "brighten", "light", "torches"]
+DARK_WORDS = ["darkness", "dark", "off", "darkness", "goodnight", "sweet dreams"]
 
 r = sr.Recognizer()
 mic = sr.Microphone() # decide the microphone based on input to the function
@@ -78,6 +78,12 @@ def speak_line(line):
     audio_obj.save("audio.mp3")
     ps.playsound('audio.mp3')
     return
+
+def parse_lights_phrase(audio):
+    try:
+        audio_string = r.recognize_google(audio)
+        word_list = audio_string.split()
+        if set(word_list) & set(ACTIVATE_WORDS):
         
 def parse_activation_phrase(recognizer, audio):
     try:

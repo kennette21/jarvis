@@ -6,13 +6,9 @@ from gtts import gTTS
 import playsound as ps
 import hueLights
 
-import pvporcupine
+# import pvporcupine
 
-handle = pvporcupine.create(keyword_file_paths=['wakewords/jarvis_mac_2020-06-03_v1.7.0.ppn'])
-
-### GENERAL JARVIS SECTION ###
-## A phrase with these words will cause Jarvis to parse and try to act ##
-ACTIVATE_WORDS = ["Jarvis", "Cortana", "wizard", "bob", "beth", "beaver", "volcano"]
+# handle = pvporcupine.create(keyword_file_paths=['wakewords/jarvis_mac_2020-06-03_v1.7.0.ppn'])
 
 ## words to activate a particular command moduele ##
 ## lights, food recomendations, take notes, video, audiobooks, etc ##
@@ -30,30 +26,37 @@ COOLER_COMMANDS = ["cooler"]
 
 LIVING_ROOM = ["living room", "living", "room", "main"]
 STUDY = ["study"]
+ALL = ["all"]
 
 ## NOTES WORDS ##
 # if a uer says any of these things the program will do the action: elaborate, repeat, or select
 ELLABORATE_RESPONSES = ["elaborate", "more", "details", "what is that"]
 REPEAT_RESPONSES = ["repeat", "pardon", "that was messed up", "no idea what you said", "what did you say"]
 SELECT_RESPONSES = ["select", "i want that one", "give me that"]
-
 r = sr.Recognizer()
-mic = sr.Microphone() # decide the microphone based on input to the function
 
-def parse_activation_phrase(audio):
+def start_listening():
+    mic = sr.Microphone()
+
+    with mic as source:
+        print("jarvis is listening")
+        audio = r.listen(source, timeout=2)
+        word_list = collect_word_list(audio)
+        if word_list:
+            print("found a word list")
+            parse_command_module(word_list)
+
+def collect_word_list(audio):
     try:
-        audio_string = r.recognize_google(audio)
-        word_list = audio_string.split()
-        print(word_list)
-        # if set(word_list) & set(ACTIVATE_WORDS):
-        #     print("wordlist ins et activate words")
-        #     ## jarvis activated. Now parse for command area: Lights, Suggestion, Audiobook, etc
-        parse_command_module(word_list)
-        print("Google Speech Recognition thinks you said " + r.recognize_google(audio))
+        word_list = r.recognize_google(audio).split()
+        print("Google Speech Recognition thinks you said " + str(word_list))
+        return(word_list)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
+        return(None)
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
+        return(None)
 
 def parse_command_module(word_list):
     print("parsing command module from: "+ str(word_list))
@@ -87,16 +90,9 @@ def get_light_location(command_list):
         return 0
     elif (set(command_list) & set(STUDY)):
         return 1
+    elif (set(command_list) & set(ALL)):
+        return -1
     else:
-        print("could not find a room, so i do living room because i am simple")
-        return 0
-        ## TODO: add individual light functionality
-
-## this is fine, but i want to wait for wakeword, then use the recognizer to figure out what was said
-with mic as source:
-    r.adjust_for_ambient_noise(source)
-    audio = r.listen(source, timeout=2)
-    parse_activation_phrase(audio)
-    print("it will work")
-
+        return -1 # default to all
+    ## TODO: add individual light functionality
 

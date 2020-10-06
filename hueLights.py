@@ -8,7 +8,8 @@ with open('secrets.json') as json_file:
 
 LIVING_ROOM = 0
 STUDY = 1
-ROOMS = {LIVING_ROOM: [1, 3, 4], STUDY: [2]}
+ALL = -1
+ROOMS = {LIVING_ROOM: [1, 3, 4, 5], STUDY: [2, 6], ALL: [1,2,3,4,5,6]}
 
 HUE_USER_ID = secrets["hue_user"]
 HUE_API_BASE = "https://"+secrets["hue_bridge_ip"]+"/api/"+HUE_USER_ID+"/"
