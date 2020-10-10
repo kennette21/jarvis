@@ -24,9 +24,9 @@ try:
 	while True:
 		print("in the while")
 		pcm = audio_stream.read(porcupine.frame_length)
-		pcm1 = struct.unpack_from("h" * porcupine.frame_length, pcm)
+		pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
 
-		keyword_index = porcupine.process(pcm1)
+		keyword_index = porcupine.process(pcm)
 
 		if keyword_index:
 			print("keyword detected, starting to listen with jarvis")
