@@ -6,10 +6,6 @@ from gtts import gTTS
 import playsound as ps
 import hueLights
 
-# import pvporcupine
-
-# handle = pvporcupine.create(keyword_file_paths=['wakewords/jarvis_mac_2020-06-03_v1.7.0.ppn'])
-
 ## words to activate a particular command moduele ##
 ## lights, food recomendations, take notes, video, audiobooks, etc ##
 LIGHT_WORDS = ["lights", "light"]
@@ -29,7 +25,7 @@ STUDY = ["study"]
 ALL = ["all"]
 
 ## NOTES WORDS ##
-# if a uer says any of these things the program will do the action: elaborate, repeat, or select
+# if a user says any of these things the program will do the action: elaborate, repeat, or select
 ELLABORATE_RESPONSES = ["elaborate", "more", "details", "what is that"]
 REPEAT_RESPONSES = ["repeat", "pardon", "that was messed up", "no idea what you said", "what did you say"]
 SELECT_RESPONSES = ["select", "i want that one", "give me that"]

@@ -79,42 +79,6 @@ def speak_line(line):
     ps.playsound('audio.mp3')
     return
 
-def parse_lights_phrase(audio):
-    try:
-        audio_string = r.recognize_google(audio)
-        word_list = audio_string.split()
-        if set(word_list) & set(ACTIVATE_WORDS):
-        
-def parse_activation_phrase(recognizer, audio):
-    try:
-        audio_string = r.recognize_google(audio)
-        word_list = audio_string.split()
-        if set(word_list) & set(ACTIVATE_WORDS):
-            speak_main("recipies", ["soup"]) # should call note type and tags based on recieved audio
-        print("Google Speech Recognition thinks you said " + r.recognize_google(audio))
-    except sr.UnknownValueError:
-        print("Google Speech Recognition could not understand audio")
-    except sr.RequestError as e:
-        print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
-
-def handle_passive_listening(recognizer, audio):
-    parse_activation_phrase(recognizer, audio)
-
-
-# speak_main("recipies", ["mexican"])
-
-with mic as source:
-    r.adjust_for_ambient_noise(source)
-    audio = r.listen(source)
-    parse_activation_phrase(audio)
-    
-# stop_listening = r.listen_in_background(mic, handle_passive_listening) ## this is a problem. We need to start list
-
-# for _ in range(1000): time.sleep(0.1) # run the program for 10 seconds or something and wait for activation phrase
-
-# stop_listening()
-
 """
 Major Next Steps:
 1. Listen in the background: https://github.com/Uberi/speech_recognition/blob/master/examples/background_listening.py sort of done
