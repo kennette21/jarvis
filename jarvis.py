@@ -3,7 +3,7 @@ import os
 import json
 import time
 from gtts import gTTS
-import playsound as ps
+# import playsound as ps
 import hueLights
 
 ## words to activate a particular command moduele ##
