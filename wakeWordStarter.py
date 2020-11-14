@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+"""
+Wake word using porcupine. Pretty sweet and accurate, but a horrible way of passing the audio stream from porcupine
+to pythons speech recognition.
+Does not work on the PI
+"""
 import struct
 import pyaudio
 import pvporcupine
