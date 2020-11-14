@@ -6,6 +6,9 @@ from gtts import gTTS
 # import playsound as ps
 import hueLights
 
+from pixel_ring import pixel_ring
+from gpiozero import LED
+
 ## words to activate a particular command moduele ##
 ## lights, food recomendations, take notes, video, audiobooks, etc ##
 LIGHT_WORDS = ["lights", "light"]
@@ -31,18 +34,41 @@ REPEAT_RESPONSES = ["repeat", "pardon", "that was messed up", "no idea what you 
 SELECT_RESPONSES = ["select", "i want that one", "give me that"]
 r = sr.Recognizer()
 
+power = LED(5)
+power.on()
+
+pixel_ring.set_brightness(10)
+
 def start_listening():
     mic = sr.Microphone()
 
     with mic as source:
         print("jarvis is listening")
+        power.on()
+        pixel_ring.wakeup()
         audio = r.listen(source, timeout=2)
         word_list = collect_word_list(audio)
         if word_list:
             print("found a word list")
             parse_command_module(word_list)
+        else:
+            pixel_ring.off()
+            time.sleep(1)
+            power.off()
+
+def jarvis_parse_audio(audio):
+    pixel_ring.wakeup()
+    word_list = collect_word_list(audio)
+    if word_list:
+        print("found word list")
+        parse_command_module(word_list)
+    else:
+        pixel_ring.off()
+        time.sleep(1)
+        power.off()
 
 def collect_word_list(audio):
+    print("inside collect_word_list")
     try:
         word_list = r.recognize_google(audio).split()
         print("Google Speech Recognition thinks you said " + str(word_list))
@@ -55,10 +81,14 @@ def collect_word_list(audio):
         return(None)
 
 def parse_command_module(word_list):
+    pixel_ring.think()
     print("parsing command module from: "+ str(word_list))
     if (set(word_list) & set(LIGHT_WORDS)):
         parse_light_command(word_list)
     else:
+        pixel_ring.off()
+        time.sleep(1)
+        power.off()
         print("no light command found, so i stop because i am simple")
 
 def parse_light_command(command_list):
@@ -80,6 +110,11 @@ def parse_light_command(command_list):
         ## have jarvis stop and ask if we want to keep going
     elif(set(command_list) & set(COOLER_COMMANDS)):
         hueLights.nudgeTempRoom(room_id, False)
+
+    pixel_ring.off()
+    time.sleep(1)
+    power.off()
+
 
 def get_light_location(command_list):
     if (set(command_list) & set(LIVING_ROOM)):
