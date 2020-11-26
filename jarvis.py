@@ -44,7 +44,6 @@ def start_listening():
 
     with mic as source:
         print("jarvis is listening")
-        power.on()
         pixel_ring.wakeup()
         audio = r.listen(source, timeout=2)
         word_list = collect_word_list(audio)
@@ -60,7 +59,6 @@ def jarvis_parse_audio(audio):
     pixel_ring.wakeup()
     word_list = collect_word_list(audio)
     if word_list:
-        print("found word list")
         parse_command_module(word_list)
     else:
         pixel_ring.off()
@@ -100,14 +98,13 @@ def parse_light_command(command_list):
     elif(set(command_list) & set(OFF_COMMANDS)):
         hueLights.toggleRoom(room_id, False)
     elif(set(command_list) & set(BRIGHTEN_COMMANDS)):
-        ## make the whole dimming thing work better. 
-        # pass a nudge command either up or down. need to refactor
+        # TODO: make the whole dimming thing work better. e.g. pass up or down to nudge command
         hueLights.briRoom(room_id, "max")
     elif(set(command_list) & set(DIM_COMMANDS)):
         hueLights.briRoom(room_id, "low")
     elif(set(command_list) & set(WARMER_COMMANDS)):
         hueLights.nudgeTempRoom(room_id, True)
-        ## have jarvis stop and ask if we want to keep going
+        # TODO: have jarvis stop and ask if we want to keep going
     elif(set(command_list) & set(COOLER_COMMANDS)):
         hueLights.nudgeTempRoom(room_id, False)
 
